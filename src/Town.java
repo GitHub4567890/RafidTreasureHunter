@@ -11,6 +11,8 @@ public class Town
     private Terrain terrain;
     private String printMessage;
     private boolean toughTown;
+    private int generatedTreasure;
+    private boolean foundTreasure;
 
     //Constructor
     /**
@@ -28,6 +30,9 @@ public class Town
         hunter = null;
 
         printMessage = "";
+
+        generateTreasure();
+        foundTreasure = false;
 
         // higher toughness = more likely to be a tough town
         toughTown = (Math.random() < toughness);
@@ -130,6 +135,69 @@ public class Town
             }
         }
     }
+
+    /**
+     * Generates a random number from 1-4.
+     */
+    public void generateTreasure() {
+        generatedTreasure = (int) ((Math.random() * 4) + 1);
+    }
+
+    /**
+     * Allows the user to "hunt" for treasure/an item.
+     * 1 = Banana
+     * 2 = Twig
+     * 3 = Spoon
+     * 4 = Nothing
+     * If the user already has the item in their inventory, they "discard" the item.
+     * buyItem() is used to access addItem() without making addItem() public.
+     */
+    public void huntForTreasure() {
+        if (!foundTreasure) {
+            String treasure = "";
+            String action = "";
+            if (generatedTreasure == 1) {
+                treasure = "Banana";
+                if (hunter.buyItem("Banana", 1)) {
+                    action = "eat";
+                    hunter.changeGold(1);
+                    hunter.addToHuntedItemTotal(1);
+                }
+            } else if (generatedTreasure == 2) {
+                treasure = "Twig";
+                if (hunter.buyItem("Twig", 1)) {
+                    action = "beat";
+                    hunter.changeGold(1);
+                    hunter.addToHuntedItemTotal(2);
+                }
+            } else if (generatedTreasure == 3) {
+                treasure = "Spoon";
+                if (hunter.buyItem("Spoon", 1)) {
+                    action = "dig";
+                    hunter.changeGold(1);
+                    hunter.addToHuntedItemTotal(3);
+                }
+            } else if (generatedTreasure == 4) {
+                printMessage = "You found nothing! Congrats!";
+            }
+
+            if (!action.equals("")) {
+                printMessage = "You found a " + treasure + "! This will be a good tool to " + action + " with.";
+            } else if (generatedTreasure != 4) {
+                printMessage = "You already have a " + treasure + " so you discard it.";
+            }
+
+            if (hunter.getHuntedItemTotal() == 6) {
+                System.out.println(printMessage + "\nYou beat the game! Congrats!");
+                System.exit(0);
+            }
+
+            foundTreasure = true;
+        } else {
+            printMessage = ("You already searched for treasure in this town!");
+        }
+    }
+
 
     public String toString()
     {

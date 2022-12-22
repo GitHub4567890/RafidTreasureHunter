@@ -12,6 +12,7 @@ public class Hunter
     private String hunterName;
     private String kit;
     private int gold;
+    private int huntedItemTotal;
 
     //Constructor
     /**
@@ -49,6 +50,14 @@ public class Hunter
         {
             gold = 0;
         }
+    }
+
+    public int getHuntedItemTotal() {
+        return huntedItemTotal;
+    }
+
+    public void addToHuntedItemTotal(int amount) {
+        huntedItemTotal += amount;
     }
 
     /**
