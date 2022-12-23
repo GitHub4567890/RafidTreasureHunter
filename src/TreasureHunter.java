@@ -121,18 +121,38 @@ public class TreasureHunter
         {
             System.out.println();
             System.out.println(currentTown.getLatestNews());
+            currentTown.setLatestNews("No new news.");
             System.out.println("***");
             System.out.println(hunter);
             System.out.println(currentTown);
-            System.out.println("(B)uy something at the shop.");
-            System.out.println("(S)ell something at the shop.");
-            System.out.println("(M)ove on to a different town.");
-            System.out.println("(L)ook for trouble!");
-            System.out.println("(H)unt for treasure!");
-            System.out.println("Give up the hunt and e(X)it.");
+            boolean cont = false;
+            while (cont == false) {
+                System.out.println("Would you like to visit the (S)hop, execute an (A)ction, or give up the hunt and (E)xit? (S/A/E):");
+                choice = scanner.nextLine();
+                if ((choice.toLowerCase()).equals("s")) {
+                    System.out.println("*** Shop ***");
+                    System.out.println("(B)uy something at the shop.");
+                    System.out.println("(S)ell something at the shop.");
+                    System.out.println("(R)eturn to main menu.");
+                    System.out.println("Give up the hunt and (e)xit.");
+                    System.out.print("What's your next move? ");
+                    choice = scanner.nextLine();
+                } else if ((choice.toLowerCase()).equals("a")) {
+                    System.out.println("*** Actions ***");
+                    System.out.println("(M)ove on to a different town.");
+                    System.out.println("(L)ook for trouble!");
+                    System.out.println("(H)unt for treasure!");
+                    System.out.println("(R)return to main menu.");
+                    System.out.println("Give up the hunt and (e)xit.");
+                    System.out.print("What's your next move? ");
+                    choice = scanner.nextLine();
+                }
+                if (!(choice.toLowerCase()).equals("r")) {
+                    System.out.println();
+                    cont = true;
+                }
+            }
             System.out.println();
-            System.out.print("What's your next move? ");
-            choice = scanner.nextLine();
             processChoice(choice);
         }
     }
@@ -163,13 +183,15 @@ public class TreasureHunter
         else if ((choice.toLowerCase()).equals("h")) {
             currentTown.huntForTreasure();
         }
-        else if (choice.equals("X") || choice.equals("x"))
+        else if (choice.equals("E") || choice.equals("e"))
         {
             System.out.println("Fare thee well, " + hunter.getHunterName() + "!");
+            System.exit(0);
         }
         else
         {
             System.out.println("Yikes! That's an invalid option! Try again.");
+            showMenu();
         }
     }
 }

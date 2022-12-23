@@ -132,7 +132,7 @@ public class Hunter
     {
         if (!hasItemInKit(item))
         {
-            kit += item + KIT_DELIMITER;
+            kit += item.toLowerCase() + KIT_DELIMITER;
             return true;
         }
 
@@ -189,7 +189,7 @@ public class Hunter
      */
     public String toString()
     {
-        String str = hunterName + " has " + gold + " gold";
+        String str = hunterName + " has: " + gold + " gold";
         if (!kit.equals(""))
         {
             str += " and " + getInventory();

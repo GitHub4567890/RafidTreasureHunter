@@ -16,7 +16,7 @@ public class Terrain
     public Terrain(String name, String item)
     {
         terrainName = name;
-        neededItem = item;
+        neededItem = item.toLowerCase();
     }
 
     //Accessors

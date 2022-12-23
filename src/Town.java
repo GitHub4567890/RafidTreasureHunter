@@ -44,6 +44,9 @@ public class Town
     {
         return printMessage;
     }
+    public void setLatestNews(String news) {
+        printMessage = news;
+    }
 
     /**
      * Assigns an object to the Hunter in town.
@@ -136,6 +139,9 @@ public class Town
             else
             {
                 printMessage += "That'll teach you to go lookin' fer trouble in MY town! Now pay up!";
+                if (mode.equals("easy")) {
+                    goldDiff = (int)(Math.random() * 10) + 1;
+                }
                 printMessage += "\nYou lost the brawl and pay " +  goldDiff + " gold.";
                 hunter.changeGold(-1 * goldDiff);
                 if (hunter.getGold() == 0) {
