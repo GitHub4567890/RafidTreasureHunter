@@ -14,6 +14,7 @@ public class TreasureHunter
     private Town currentTown;
     private Hunter hunter;
     private boolean hardMode;
+    private boolean easyMode;
 
     //Constructor
     /**
@@ -49,13 +50,17 @@ public class TreasureHunter
 
         // set hunter instance variable
         hunter = new Hunter(name, 10);
-
-        System.out.print("Hard mode? (y/n): ");
+        System.out.print("Hard or Easy mode? (h/e): ");
         String hard = scanner.nextLine();
-        if (hard.equals("y") || hard.equals("Y"))
+        if (hard.equals("H") || hard.equals("h"))
         {
             hardMode = true;
+        } else if ((hard.toLowerCase()).equals("e")) {
+            easyMode = true;
+        } else {
+            System.out.println("Game set to default medium mode.");
         }
+
     }
 
     /**
@@ -63,15 +68,26 @@ public class TreasureHunter
      */
     private void enterTown()
     {
-        double markdown = 0.25;
+        //Medium mode defaults
+        double markdown = 0.27;
         double toughness = 0.4;
+        String mode = "medium";
         if (hardMode)
         {
             // in hard mode, you get less money back when you sell items
-            markdown = 0.5;
+            markdown = 0.17;
 
             // and the town is "tougher"
             toughness = 0.75;
+
+            // To determine store prices
+            mode = "hard";
+        } else if (easyMode) {
+            // More money back for reselling in easy mode
+            markdown = 0.5;
+            // easier town
+            toughness = 0.20;
+            mode = "easy";
         }
 
         // note that we don't need to access the Shop object
@@ -82,7 +98,7 @@ public class TreasureHunter
         // creating the new Town -- which we need to store as an instance
         // variable in this class, since we need to access the Town
         // object in other methods of this class
-        currentTown = new Town(shop, toughness);
+        currentTown = new Town(shop, toughness, mode);
 
         // calling the hunterArrives method, which takes the Hunter
         // as a parameter; note this also could have been done in the

@@ -74,7 +74,6 @@ public class Hunter
         {
             return false;
         }
-
         gold -= costOfItem;
         addItem(item);
         return true;

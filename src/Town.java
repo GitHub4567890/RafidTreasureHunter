@@ -13,6 +13,7 @@ public class Town
     private boolean toughTown;
     private int generatedTreasure;
     private boolean foundTreasure;
+    private String mode;
 
     //Constructor
     /**
@@ -20,10 +21,11 @@ public class Town
      * @param s The town's shoppe.
      * @param t The surrounding terrain.
      */
-    public Town(Shop shop, double toughness)
+    public Town(Shop shop, double toughness, String mode)
     {
         this.shop = shop;
         this.terrain = getNewTerrain();
+        this.mode = mode;
 
         // the hunter gets set using the hunterArrives method, which
         // gets called from a client class
@@ -116,7 +118,15 @@ public class Town
         else
         {
             printMessage = "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n";
-            int goldDiff = (int)(Math.random() * 10) + 1;
+            int goldDiff;
+            if (mode.equals("easy")) {
+                goldDiff = (int)(Math.random() * 20) + 5;
+            } else if (mode.equals("medium")) {
+                goldDiff = (int)(Math.random() * 15) + 1;
+            } else {
+                goldDiff = (int)(Math.random() * 10) + 1;
+            }
+
             if (Math.random() > noTroubleChance)
             {
                 printMessage += "Okay, stranger! You proved yer mettle. Here, take my gold.";
