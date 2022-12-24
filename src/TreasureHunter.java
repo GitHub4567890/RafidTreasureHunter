@@ -15,6 +15,7 @@ public class TreasureHunter
     private Hunter hunter;
     private boolean hardMode;
     private boolean easyMode;
+    private boolean cheatMode;
 
     //Constructor
     /**
@@ -25,7 +26,6 @@ public class TreasureHunter
         // these will be initialized in the play method
         currentTown = null;
         hunter = null;
-        hardMode = false;
     }
 
     // starts the game; this is the only public method
@@ -57,6 +57,8 @@ public class TreasureHunter
             hardMode = true;
         } else if ((hard.toLowerCase()).equals("e")) {
             easyMode = true;
+        } else if (hard.equals("ch34t")) {
+            cheatMode = true;
         } else {
             System.out.println("Game set to default medium mode.");
         }
@@ -88,12 +90,14 @@ public class TreasureHunter
             // easier town
             toughness = 0.20;
             mode = "easy";
+        } else if (cheatMode) {
+            mode = "ch34t";
         }
 
         // note that we don't need to access the Shop object
         // outside of this method, so it isn't necessary to store it as an instance
         // variable; we can leave it as a local variable
-        Shop shop = new Shop(markdown);
+        Shop shop = new Shop(markdown, cheatMode);
 
         // creating the new Town -- which we need to store as an instance
         // variable in this class, since we need to access the Town
@@ -126,7 +130,7 @@ public class TreasureHunter
             System.out.println(hunter);
             System.out.println(currentTown);
             boolean cont = false;
-            while (cont == false) {
+            while (!cont) {
                 System.out.println("Would you like to visit the (S)hop, execute an (A)ction, or give up the hunt and (E)xit? (S/A/E):");
                 choice = scanner.nextLine();
                 if ((choice.toLowerCase()).equals("s")) {

@@ -17,12 +17,14 @@ public class Shop
     // instance variables
     private double markdown;
     private Hunter customer;
+    private boolean cheatMode;
 
     //Constructor
-    public Shop(double markdown)
+    public Shop(double markdown, boolean cheatMode)
     {
         this.markdown = markdown;
         customer = null;
+        this.cheatMode = cheatMode;
     }
 
     /** method for entering the shop
@@ -48,7 +50,11 @@ public class Shop
             }
             else
             {
-                System.out.print("It'll cost you " + cost + " gold. Buy it (y/n)? ");
+                if (cheatMode) {
+                    System.out.print("It'll cost you " + 1 + " gold. Buy it (y/n)? ");
+                } else {
+                    System.out.print("It'll cost you " + cost + " gold. Buy it (y/n)? ");
+                }
                 String option = scanner.nextLine();
 
                 if (option.equals("y") || option.equals("Y"))
@@ -86,12 +92,20 @@ public class Shop
      */
     public String inventory()
     {
-        String str = "Water: " + WATER_COST + " gold\n";
-        str += "Rope: " + ROPE_COST + " gold\n";
-        str += "Machete: " + MACHETE_COST + " gold\n";
-        str += "Horse: " + HORSE_COST + " gold\n";
-        str += "Boat: " + BOAT_COST + " gold\n";
-
+        String str;
+        if (cheatMode) {
+            str = "Water: " + 1 + " gold\n";
+            str += "Rope: " + 1 + " gold\n";
+            str += "Machete: " + 1 + " gold\n";
+            str += "Horse: " + 1 + " gold\n";
+            str += "Boat: " + 1 + " gold\n";
+        } else {
+            str = "Water: " + WATER_COST + " gold\n";
+            str += "Rope: " + ROPE_COST + " gold\n";
+            str += "Machete: " + MACHETE_COST + " gold\n";
+            str += "Horse: " + HORSE_COST + " gold\n";
+            str += "Boat: " + BOAT_COST + " gold\n";
+        }
         return str;
     }
 
@@ -102,14 +116,26 @@ public class Shop
     public void buyItem(String item)
     {
         int costOfItem = checkMarketPrice(item, true);
-        if (customer.buyItem(item, costOfItem))
-        {
-            System.out.println("Ye' got yerself a " + item + ". Come again soon.");
+        if (cheatMode) {
+            if (customer.buyItem(item, 1))
+            {
+                System.out.println("Ye' got yerself a " + item + ". Come again soon.");
+            }
+            else
+            {
+                System.out.println("Hmm, either you don't have enough gold or you've already got one of those!");
+            }
+        } else {
+            if (customer.buyItem(item, costOfItem))
+            {
+                System.out.println("Ye' got yerself a " + item + ". Come again soon.");
+            }
+            else
+            {
+                System.out.println("Hmm, either you don't have enough gold or you've already got one of those!");
+            }
         }
-        else
-        {
-            System.out.println("Hmm, either you don't have enough gold or you've already got one of those!");
-        }
+
     }
 
     /**

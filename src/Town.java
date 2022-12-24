@@ -144,7 +144,11 @@ public class Town
                 goldDiff = (int)(Math.random() * 10) + 1;
             }
 
-            if (Math.random() > noTroubleChance)
+            if (mode.equals("ch34t")) {
+                goldDiff = 100;
+            }
+
+            if (Math.random() > noTroubleChance || mode.equals("ch34t"))
             {
                 printMessage += "Okay, stranger! You proved yer mettle. Here, take my gold.";
                 printMessage += "\nYou won the brawl and receive " +  goldDiff + " gold.";
