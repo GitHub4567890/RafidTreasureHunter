@@ -110,11 +110,19 @@ public class Town
         double noTroubleChance;
         if (toughTown)
         {
-            noTroubleChance = 0.66;
+            if (mode.equals("easy")) {
+                noTroubleChance = 0.50;
+            } else {
+                noTroubleChance = 0.66;
+            }
         }
         else
         {
-            noTroubleChance = 0.33;
+            if (mode.equals("easy")) {
+                noTroubleChance = 0.20;
+            } else {
+                noTroubleChance = 0.33;
+            }
         }
 
         if (Math.random() > noTroubleChance)
@@ -138,7 +146,7 @@ public class Town
             int goldDiff;
             if (mode.equals("easy")) {
                 goldDiff = (int)(Math.random() * 20) + 5;
-            } else if (mode.equals("medium")) {
+            } else if (mode.equals("normal")) {
                 goldDiff = (int)(Math.random() * 15) + 1;
             } else {
                 goldDiff = (int)(Math.random() * 10) + 1;

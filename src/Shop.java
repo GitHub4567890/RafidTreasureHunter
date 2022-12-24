@@ -13,18 +13,25 @@ public class Shop
     private static final int MACHETE_COST = 6;
     private static final int HORSE_COST = 12;
     private static final int BOAT_COST = 20;
+    private int waterEasy = WATER_COST - 1;
+    private int ropeEasy = ROPE_COST - 1;
+    private int macheteEasy = MACHETE_COST - 2;
+    private int horseEasy = HORSE_COST - 3;
+    private int boatEasy = BOAT_COST - 4;
 
     // instance variables
     private double markdown;
     private Hunter customer;
     private boolean cheatMode;
+    private boolean easyMode;
 
     //Constructor
-    public Shop(double markdown, boolean cheatMode)
+    public Shop(double markdown, boolean cheatMode, boolean easyMode)
     {
         this.markdown = markdown;
         customer = null;
         this.cheatMode = cheatMode;
+        this.easyMode = easyMode;
     }
 
     /** method for entering the shop
@@ -99,6 +106,12 @@ public class Shop
             str += "Machete: " + 1 + " gold\n";
             str += "Horse: " + 1 + " gold\n";
             str += "Boat: " + 1 + " gold\n";
+        } else if (easyMode) {
+            str = "Water: " + waterEasy + " gold\n";
+            str += "Rope: " + ropeEasy + " gold\n";
+            str += "Machete: " + macheteEasy + " gold\n";
+            str += "Horse: " + horseEasy + " gold\n";
+            str += "Boat: " + boatEasy + " gold\n";
         } else {
             str = "Water: " + WATER_COST + " gold\n";
             str += "Rope: " + ROPE_COST + " gold\n";
@@ -165,7 +178,7 @@ public class Shop
     {
         if (isBuying)
         {
-            return getCostOfItem(item);
+            return getCostOfItem(item, easyMode);
         }
         else
         {
@@ -179,32 +192,60 @@ public class Shop
      * @param item The item being checked for cost.
      * @return The cost of the item or 0 if the item is not found.
      */
-    public int getCostOfItem(String item)
+    public int getCostOfItem(String item, boolean easyMode)
     {
-        if (item.toLowerCase().equals("water"))
-        {
-            return WATER_COST;
+        if (easyMode) {
+            if (item.toLowerCase().equals("water"))
+            {
+                return waterEasy;
+            }
+            else if (item.toLowerCase().equals("rope"))
+            {
+                return ropeEasy;
+            }
+            else if (item.toLowerCase().equals("machete"))
+            {
+                return macheteEasy;
+            }
+            else if (item.toLowerCase().equals("horse"))
+            {
+                return horseEasy;
+            }
+            else if (item.toLowerCase().equals("boat"))
+            {
+                return boatEasy;
+            }
+            else
+            {
+                return 0;
+            }
+        } else {
+            if (item.toLowerCase().equals("water"))
+            {
+                return WATER_COST;
+            }
+            else if (item.toLowerCase().equals("rope"))
+            {
+                return ROPE_COST;
+            }
+            else if (item.toLowerCase().equals("machete"))
+            {
+                return MACHETE_COST;
+            }
+            else if (item.toLowerCase().equals("horse"))
+            {
+                return HORSE_COST;
+            }
+            else if (item.toLowerCase().equals("boat"))
+            {
+                return BOAT_COST;
+            }
+            else
+            {
+                return 0;
+            }
         }
-        else if (item.toLowerCase().equals("rope"))
-        {
-            return ROPE_COST;
-        }
-        else if (item.toLowerCase().equals("machete"))
-        {
-            return MACHETE_COST;
-        }
-        else if (item.toLowerCase().equals("horse"))
-        {
-            return HORSE_COST;
-        }
-        else if (item.toLowerCase().equals("boat"))
-        {
-            return BOAT_COST;
-        }
-        else
-        {
-            return 0;
-        }
+
     }
 
     /**
@@ -215,7 +256,7 @@ public class Shop
      */
     public int getBuyBackCost(String item)
     {
-        int cost = (int)(getCostOfItem(item) * markdown);
+        int cost = (int)(getCostOfItem(item, easyMode) * markdown);
         return cost;
     }
 }

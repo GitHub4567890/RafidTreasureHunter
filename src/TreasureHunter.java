@@ -15,6 +15,7 @@ public class TreasureHunter
     private Hunter hunter;
     private boolean hardMode;
     private boolean easyMode;
+    private boolean normalMode;
     private boolean cheatMode;
 
     //Constructor
@@ -48,21 +49,36 @@ public class TreasureHunter
         System.out.print("What's your name, Hunter? ");
         String name = scanner.nextLine();
 
-        // set hunter instance variable
-        hunter = new Hunter(name, 10);
-        System.out.print("Hard or Easy mode? (h/e): ");
-        String hard = scanner.nextLine();
-        if (hard.equals("H") || hard.equals("h"))
-        {
-            hardMode = true;
-        } else if ((hard.toLowerCase()).equals("e")) {
-            easyMode = true;
-        } else if (hard.equals("ch34t")) {
-            cheatMode = true;
-        } else {
-            System.out.println("Game set to default medium mode.");
+        boolean cont = false;
+        while (!cont) {
+            System.out.print("Hard, Easy, or Normal mode? (h/e/n): ");
+            String hard = scanner.nextLine();
+            if (hard.equals("H") || hard.equals("h")) {
+                hardMode = true;
+                cont = true;
+                System.out.println("Game set to hard mode.");
+            } else if ((hard.toLowerCase()).equals("e")) {
+                easyMode = true;
+                cont = true;
+                System.out.println("Game set to easy mode.");
+            } else if ((hard.toLowerCase()).equals("n")) {
+                normalMode = true;
+                cont = true;
+                System.out.println("Game set to normal mode.");
+            } else if (hard.equals("ch34t")) {
+                cheatMode = true;
+                cont = true;
+            } else {
+                System.out.println("Error: please enter h, e, or n.");
+            }
         }
 
+        // set hunter instance variable
+        if (easyMode) {
+            hunter = new Hunter(name, 20);
+        } else {
+            hunter = new Hunter(name, 10);
+        }
     }
 
     /**
@@ -70,10 +86,10 @@ public class TreasureHunter
      */
     private void enterTown()
     {
-        //Medium mode defaults
-        double markdown = 0.27;
-        double toughness = 0.4;
-        String mode = "medium";
+        double markdown = 0;
+        double toughness = 0;
+        String mode = "";
+
         if (hardMode)
         {
             // in hard mode, you get less money back when you sell items
@@ -90,6 +106,10 @@ public class TreasureHunter
             // easier town
             toughness = 0.20;
             mode = "easy";
+        } else if (normalMode) {
+            markdown = 0.27;
+            toughness = 0.4;
+            mode = "normal";
         } else if (cheatMode) {
             mode = "ch34t";
         }
@@ -97,7 +117,7 @@ public class TreasureHunter
         // note that we don't need to access the Shop object
         // outside of this method, so it isn't necessary to store it as an instance
         // variable; we can leave it as a local variable
-        Shop shop = new Shop(markdown, cheatMode);
+        Shop shop = new Shop(markdown, cheatMode, easyMode);
 
         // creating the new Town -- which we need to store as an instance
         // variable in this class, since we need to access the Town
