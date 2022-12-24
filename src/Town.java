@@ -14,6 +14,7 @@ public class Town
     private int generatedTreasure;
     private boolean foundTreasure;
     private String mode;
+    private int brawlAnimation;
 
     //Constructor
     /**
@@ -38,6 +39,8 @@ public class Town
 
         // higher toughness = more likely to be a tough town
         toughTown = (Math.random() < toughness);
+
+        brawlAnimation = (int) (Math.random() * 5) + 1;
     }
 
     public String getLatestNews()
@@ -120,7 +123,18 @@ public class Town
         }
         else
         {
-            printMessage = "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n";
+            if (brawlAnimation == 1) {
+                printMessage = "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n";
+            } else if (brawlAnimation == 2) {
+                printMessage = "Welcome to my lair. You're not allowed in here.\naAAAAAAaAAaAAaaAaAAAaAa\n";
+            } else if (brawlAnimation == 3) {
+                printMessage = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n";
+            } else if (brawlAnimation == 4) {
+                printMessage = "Humpty dumpty fell on a wall and so did you.\n*Throws grenade*\n";
+            } else if (brawlAnimation == 5) {
+                printMessage = "YOU DON'T PUT HOT SAUCE IN YOUR BURGER??? YOU MENACE TO SOCIETY.\n";
+            }
+
             int goldDiff;
             if (mode.equals("easy")) {
                 goldDiff = (int)(Math.random() * 20) + 5;
