@@ -13,11 +13,13 @@ public class Shop
     private static final int MACHETE_COST = 6;
     private static final int HORSE_COST = 12;
     private static final int BOAT_COST = 20;
+    private static final int BRAVERY_COST = 50;
     private int waterEasy = WATER_COST - 1;
     private int ropeEasy = ROPE_COST - 1;
     private int macheteEasy = MACHETE_COST - 2;
     private int horseEasy = HORSE_COST - 3;
     private int boatEasy = BOAT_COST - 4;
+    private int braveryEasy = BRAVERY_COST - 10;
 
     // instance variables
     private double markdown;
@@ -106,18 +108,21 @@ public class Shop
             str += "Machete: " + 1 + " gold\n";
             str += "Horse: " + 1 + " gold\n";
             str += "Boat: " + 1 + " gold\n";
+            str += "Bravery: " + 1 + " gold\n";
         } else if (easyMode) {
             str = "Water: " + waterEasy + " gold\n";
             str += "Rope: " + ropeEasy + " gold\n";
             str += "Machete: " + macheteEasy + " gold\n";
             str += "Horse: " + horseEasy + " gold\n";
             str += "Boat: " + boatEasy + " gold\n";
+            str += "Bravery: " + braveryEasy + " gold\n";
         } else {
             str = "Water: " + WATER_COST + " gold\n";
             str += "Rope: " + ROPE_COST + " gold\n";
             str += "Machete: " + MACHETE_COST + " gold\n";
             str += "Horse: " + HORSE_COST + " gold\n";
             str += "Boat: " + BOAT_COST + " gold\n";
+            str += "Bravery: " + BRAVERY_COST + " gold\n";
         }
         return str;
     }
@@ -215,6 +220,9 @@ public class Shop
             {
                 return boatEasy;
             }
+            else if (item.toLowerCase().equals("bravery")) {
+                return braveryEasy;
+            }
             else
             {
                 return 0;
@@ -239,6 +247,9 @@ public class Shop
             else if (item.toLowerCase().equals("boat"))
             {
                 return BOAT_COST;
+            }
+            else if (item.toLowerCase().equals("bravery")) {
+                return BRAVERY_COST;
             }
             else
             {

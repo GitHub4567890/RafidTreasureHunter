@@ -119,7 +119,7 @@ public class Town
         else
         {
             if (mode.equals("easy")) {
-                noTroubleChance = 0.20;
+                noTroubleChance = 0.25;
             } else {
                 noTroubleChance = 0.33;
             }
@@ -253,26 +253,29 @@ public class Town
      */
     private Terrain getNewTerrain()
     {
-        double rnd = Math.random();
-        if (rnd < .2)
+        double rnd = (Math.random() * 6.5 + 1);
+        if (rnd <= 1)
         {
             return new Terrain("Mountains", "Rope");
         }
-        else if (rnd < .4)
+        else if (rnd <= 2)
         {
             return new Terrain("Ocean", "Boat");
         }
-        else if (rnd < .6)
+        else if (rnd <= 3)
         {
             return new Terrain("Plains", "Horse");
         }
-        else if (rnd < .8)
+        else if (rnd <= 4)
         {
             return new Terrain("Desert", "Water");
         }
+        else if (rnd <= 5) {
+            return new Terrain("Jungle", "Machete");
+        }
         else
         {
-            return new Terrain("Jungle", "Machete");
+            return new Terrain("I-95", "Bravery");
         }
     }
 
